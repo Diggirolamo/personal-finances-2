@@ -23,6 +23,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<AuthenticationResponse> update(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.update(request));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<AuthenticationResponse> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(service.delete(id));
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
@@ -32,16 +42,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> refreshToken(@RequestBody Map<String, String> request) {
         String refreshToken = request.get("refreshToken");
         return ResponseEntity.ok(service.refreshToken(refreshToken));
-    }
-
-    @GetMapping("/user/profile")
-    public ResponseEntity<String> getUserProfile() {
-        return ResponseEntity.ok("User profile visible only to USER");
-    }
-
-    @GetMapping("/admin/dashboard")
-    public ResponseEntity<String> getAdminDashboard() {
-        return ResponseEntity.ok("Dashboard visible only to ADMIN");
     }
 
     @PutMapping("/change-role/{userId}")

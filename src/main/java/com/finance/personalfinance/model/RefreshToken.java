@@ -19,8 +19,8 @@ public class RefreshToken {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "_user", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private String token;

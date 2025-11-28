@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -57,6 +59,38 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken).refreshToken(refreshToken.getToken())
+                .build();
+    }
+
+    public AuthenticationResponse update(RegisterRequest request) {
+        User user = repository.findById(request.getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (request.getFirstname() != null) user.setFirstname(request.getFirstname());
+        if (request.getLastname() != null) user.setLastname(request.getLastname());
+        if (request.getEmail() != null) user.setEmail(request.getEmail());
+        if (request.getPassword() != null) user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        repository.save(user);
+
+        String jwtToken = jwtService.generateToken(user);
+        RefreshToken token = refreshTokenService.createRefreshToken(user.getId());
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .refreshToken(token.getToken())
+                .build();
+    }
+
+    @Transactional
+    public AuthenticationResponse delete(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        refreshTokenService.deleteAllByUserId(id);
+        repository.delete(user);
+
+        return AuthenticationResponse.builder()
+                .token("User deleted successfully")
                 .build();
     }
 
