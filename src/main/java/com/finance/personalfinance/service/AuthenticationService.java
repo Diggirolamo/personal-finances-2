@@ -1,9 +1,11 @@
-package com.finance.personalfinance.auth;
+package com.finance.personalfinance.service;
 
-import com.finance.personalfinance.config.JwtService;
-import com.finance.personalfinance.user.Role;
-import com.finance.personalfinance.user.User;
-import com.finance.personalfinance.user.UserRepository;
+import com.finance.personalfinance.auth.AuthenticationRequest;
+import com.finance.personalfinance.auth.AuthenticationResponse;
+import com.finance.personalfinance.auth.RegisterRequest;
+import com.finance.personalfinance.model.Role;
+import com.finance.personalfinance.model.User;
+import com.finance.personalfinance.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.var;

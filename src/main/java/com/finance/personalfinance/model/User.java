@@ -1,4 +1,4 @@
-package com.finance.personalfinance.user;
+package com.finance.personalfinance.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Data
 @Builder

@@ -1,5 +1,6 @@
 package com.finance.personalfinance.config;
 
+import com.finance.personalfinance.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

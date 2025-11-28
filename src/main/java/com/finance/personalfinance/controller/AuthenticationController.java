@@ -1,5 +1,9 @@
-package com.finance.personalfinance.auth;
+package com.finance.personalfinance.controller;
 
+import com.finance.personalfinance.auth.AuthenticationRequest;
+import com.finance.personalfinance.auth.AuthenticationResponse;
+import com.finance.personalfinance.auth.RegisterRequest;
+import com.finance.personalfinance.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

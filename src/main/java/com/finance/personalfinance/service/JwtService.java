@@ -1,4 +1,4 @@
-package com.finance.personalfinance.config;
+package com.finance.personalfinance.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
