@@ -36,6 +36,8 @@ public class SecurityConfiguration {
                 .antMatchers("/auth/admin/dashboard").hasRole("ADMIN")
                 .antMatchers("/demo-controller/user").hasRole("USER")
                 .antMatchers("/demo-controller/admin").hasRole("ADMIN")
+                .antMatchers("/categorie/").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
