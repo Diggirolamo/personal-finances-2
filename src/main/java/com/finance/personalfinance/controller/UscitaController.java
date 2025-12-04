@@ -15,7 +15,7 @@ public class UscitaController {
 
     private final UscitaService uscitaService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Uscita create(@RequestBody UscitaDTO dto) {
         return uscitaService.create(dto);
     }
@@ -25,17 +25,17 @@ public class UscitaController {
         return uscitaService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findBy/{id}")
     public Uscita getById(@PathVariable Long id) {
         return uscitaService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Uscita update(@PathVariable Long id, @RequestBody UscitaDTO dto) {
         return uscitaService.update(id, dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         uscitaService.delete(id);
     }

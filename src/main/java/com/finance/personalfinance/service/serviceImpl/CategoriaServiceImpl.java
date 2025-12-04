@@ -1,7 +1,9 @@
 package com.finance.personalfinance.service.serviceImpl;
 
 import com.finance.personalfinance.model.Categoria;
-import com.finance.personalfinance.repository.CategoriaRepo;
+import com.finance.personalfinance.model.User;
+import com.finance.personalfinance.repository.CategoriaRepository;
+import com.finance.personalfinance.repository.UserRepository;
 import com.finance.personalfinance.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,34 +16,51 @@ import java.util.List;
 @Transactional
 public class CategoriaServiceImpl implements CategoriaService {
 
-    private final CategoriaRepo categoriaRepo;
+    private final CategoriaRepository categoriaRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public Categoria create(Categoria categoria) {
-        return categoriaRepo.save(categoria);
+
+        if (categoria.getUser() != null && categoria.getUser().getId() != null) {
+            User realUser = userRepository.findById(categoria.getUser().getId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            categoria.setUser(realUser);
+        }
+
+        return categoriaRepository.save(categoria);
     }
 
     @Override
     public Categoria findById(Long id) {
-        return categoriaRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria non trovata"));
+        return categoriaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
     @Override
     public List<Categoria> findAll() {
-        return categoriaRepo.findAll();
+        return categoriaRepository.findAll();
     }
 
     @Override
     public Categoria update(Long id, Categoria categoria) {
         Categoria existing = findById(id);
         existing.setNome(categoria.getNome());
-        return categoriaRepo.save(existing);
+
+        if (categoria.getUser() != null && categoria.getUser().getId() != null) {
+            User realUser = userRepository.findById(categoria.getUser().getId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            existing.setUser(realUser);
+        }
+
+        return categoriaRepository.save(existing);
     }
 
     @Override
     public void delete(Long id) {
-        categoriaRepo.deleteById(id);
+        categoriaRepository.deleteById(id);
     }
 }
 

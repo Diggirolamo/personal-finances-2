@@ -1,6 +1,5 @@
 package com.finance.personalfinance.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,13 +29,12 @@ public class PagamentoRicorrente {
     private LocalDate prossimaData;
 
     @Enumerated(EnumType.STRING)
-    private FrequenzaPagamento frequenza; // MENSILE / SETTIMANALE / ANNUALE etc.
+    private FrequenzaPagamento frequenza;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     private Categoria categoria;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 }
 

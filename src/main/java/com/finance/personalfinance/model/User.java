@@ -1,5 +1,6 @@
 package com.finance.personalfinance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "enabled", "authorities", "accountNonLocked", "accountNonExpired", "credentialsNonExpired"})
 public class User implements UserDetails {
 
     @Id

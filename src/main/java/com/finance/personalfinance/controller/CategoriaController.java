@@ -14,7 +14,7 @@ public class CategoriaController {
 
     private final CategoriaService categoriaService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Categoria create(@RequestBody Categoria c) {
         return categoriaService.create(c);
     }
@@ -24,17 +24,17 @@ public class CategoriaController {
         return categoriaService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findBy/{id}")
     public Categoria getById(@PathVariable Long id) {
         return categoriaService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Categoria update(@PathVariable Long id, @RequestBody Categoria c) {
         return categoriaService.update(id, c);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         categoriaService.delete(id);
     }

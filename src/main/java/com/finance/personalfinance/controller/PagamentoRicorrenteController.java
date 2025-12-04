@@ -15,7 +15,7 @@ public class PagamentoRicorrenteController {
 
     private final PagamentoRicorrenteService pagamentoService;
 
-    @PostMapping
+    @PostMapping("/create")
     public PagamentoRicorrente create(@RequestBody PagamentoRicorrenteDTO dto) {
         return pagamentoService.create(dto);
     }
@@ -25,17 +25,17 @@ public class PagamentoRicorrenteController {
         return pagamentoService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findBy/{id}")
     public PagamentoRicorrente getById(@PathVariable Long id) {
         return pagamentoService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public PagamentoRicorrente update(@PathVariable Long id, @RequestBody PagamentoRicorrenteDTO dto) {
         return pagamentoService.update(id, dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         pagamentoService.delete(id);
     }

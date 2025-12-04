@@ -20,7 +20,7 @@ import javax.transaction.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserRepository repository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -35,7 +35,7 @@ public class AuthenticationService {
                 .role(request.getRole() != null ? request.getRole() : Role.USER)
                 .build();
 
-        repository.save(user);
+        userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getId());
 
@@ -53,7 +53,7 @@ public class AuthenticationService {
                 )
         );
 
-        User user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         String jwtToken = jwtService.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getId());
 
@@ -63,7 +63,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse update(RegisterRequest request) {
-        User user = repository.findById(request.getId())
+        User user = userRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (request.getFirstname() != null) user.setFirstname(request.getFirstname());
@@ -71,7 +71,7 @@ public class AuthenticationService {
         if (request.getEmail() != null) user.setEmail(request.getEmail());
         if (request.getPassword() != null) user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        repository.save(user);
+        userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
         RefreshToken token = refreshTokenService.createRefreshToken(user.getId());
@@ -84,10 +84,10 @@ public class AuthenticationService {
 
     @Transactional
     public AuthenticationResponse delete(Long id) {
-        User user = repository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         refreshTokenService.deleteAllByUserId(id);
-        repository.delete(user);
+        userRepository.delete(user);
 
         return AuthenticationResponse.builder()
                 .token("User deleted successfully")
@@ -106,10 +106,10 @@ public class AuthenticationService {
     }
 
     public User changeUserRole(Long userId, Role role) {
-        User user = repository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         user.setRole(role);
 
-        return repository.save(user);
+        return userRepository.save(user);
     }
 }

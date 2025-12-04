@@ -14,5 +14,5 @@ public class PagamentoRicorrenteDTO {
     private LocalDate prossimaData;
     private FrequenzaPagamento frequenzaPagamento;
     private Long idCategoria;
-
+    private Long idUser;
 }

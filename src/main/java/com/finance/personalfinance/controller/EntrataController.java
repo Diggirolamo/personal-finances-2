@@ -15,7 +15,7 @@ public class EntrataController {
 
     private final EntrataService entrataService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Entrata create(@RequestBody EntrataDTO dto) {
         return entrataService.create(dto);
     }
@@ -25,17 +25,17 @@ public class EntrataController {
         return entrataService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("findBy/{id}")
     public Entrata getById(@PathVariable Long id) {
         return entrataService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Entrata update(@PathVariable Long id, @RequestBody EntrataDTO dto) {
         return entrataService.update(id, dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         entrataService.delete(id);
     }

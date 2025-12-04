@@ -44,7 +44,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.refreshToken(refreshToken));
     }
 
-    @PutMapping("/change-role/{userId}")
+    @PutMapping("/change-role/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> changeRole(@PathVariable Long userId, @RequestParam Role role) {
         service.changeUserRole(userId, role);

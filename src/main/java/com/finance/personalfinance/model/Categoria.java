@@ -21,8 +21,8 @@ public class Categoria {
     @Column(nullable=false, unique=true)
     private String nome; // es: "Affitto", "Spesa alimentare", "Stipendio"
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user; // così ogni utente ha categorie proprie
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 

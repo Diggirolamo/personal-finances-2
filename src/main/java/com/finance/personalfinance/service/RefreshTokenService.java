@@ -13,7 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RefreshTokenService {
 
-    private final RefreshTokenRepository repository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
 
     public RefreshToken createRefreshToken(Long userId) {
@@ -22,19 +22,19 @@ public class RefreshTokenService {
                 .user(userRepository.findById(userId)
                         .orElseThrow(() -> new RuntimeException("User not found")))
                 .token(UUID.randomUUID().toString())
-                .expiryDate(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30)) // 30 giorni
+                .expiryDate(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
                 .build();
 
-        return repository.save(token);
+        return refreshTokenRepository.save(token);
     }
 
     public RefreshToken verifyExpiration(String tokenStr) {
 
-        RefreshToken token = repository.findByToken(tokenStr)
+        RefreshToken token = refreshTokenRepository.findByToken(tokenStr)
                 .orElseThrow(() -> new RuntimeException("Refresh token not found"));
 
         if (token.getExpiryDate().before(new Date())) {
-            repository.delete(token);
+            refreshTokenRepository.delete(token);
             throw new RuntimeException("Refresh token expired");
         }
 
@@ -42,6 +42,6 @@ public class RefreshTokenService {
     }
 
     public void deleteAllByUserId(Long id) {
-        repository.deleteAllByUserId(id);
+        refreshTokenRepository.deleteAllByUserId(id);
     }
 }

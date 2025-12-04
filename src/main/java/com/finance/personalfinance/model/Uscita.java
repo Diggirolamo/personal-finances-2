@@ -1,6 +1,5 @@
 package com.finance.personalfinance.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,10 +29,9 @@ public class Uscita {
     @Column(nullable=false)
     private LocalDate data;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     private Categoria categoria;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 }

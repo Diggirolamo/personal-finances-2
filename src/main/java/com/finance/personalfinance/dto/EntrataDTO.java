@@ -12,5 +12,6 @@ public class EntrataDTO {
     private BigDecimal importo;
     private LocalDate data;
     private Long idCategoria;
+    private Long idUser;
 
 }
