@@ -1,5 +1,6 @@
 package com.finance.personalfinance.model.investment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,5 +42,6 @@ public class Investment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asset_class_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private AssetClass assetClass;
 }
